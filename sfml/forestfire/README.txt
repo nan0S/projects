@@ -1,0 +1,1 @@
+Forest fire simulation. Fire starts automatically. Forest burns and regrows.

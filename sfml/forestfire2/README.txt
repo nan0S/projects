@@ -1,0 +1,1 @@
+Forest fire simulation. Left click on tree to set it on fire. Forest burns and regrows.
