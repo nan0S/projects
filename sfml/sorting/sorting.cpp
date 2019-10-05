@@ -23,11 +23,11 @@ void displayMenu(RenderWindow &window) {
     window.clear(Color::Black);
 
     Font bold, light, semibold;
-    bold.loadFromFile("myfont_bold.ttf");
-    light.loadFromFile("myfont_light.ttf");
-    semibold.loadFromFile("myfont_semibold.ttf");
+    bold.loadFromFile("../fonts/myfont_bold.ttf");
+    light.loadFromFile("../fonts/myfont_light.ttf");
+    semibold.loadFromFile("../fonts/myfont_semibold.ttf");
 
-    drawText("Wybierz metode sortowania:", bold, 30, W / 2, 200, window);
+    drawText("Choose sort method:", bold, 30, W / 2, 200, window);
 
     drawText("1.", semibold, 25, 300, 400, window);
     drawText("SelectSort", bold, 25, 500, 400, window);

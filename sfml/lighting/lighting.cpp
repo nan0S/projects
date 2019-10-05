@@ -31,6 +31,8 @@ std::vector<Object> objects;
 
 int main()
 {
+    std::srand(time(NULL));
+
     ContextSettings settings; settings.antialiasingLevel = 16;
     RenderWindow window(VideoMode(W, H), "Lightning", Style::Default, settings);
 
@@ -43,7 +45,7 @@ int main()
         }
     }
 
-    int objectAmount = 6;
+    int objectAmount = 5;
     for(int i = 0; i < objectAmount; ++i) {
         objects.push_back(Object());
     }

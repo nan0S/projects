@@ -52,7 +52,7 @@ public:
 
         state = growing;
         maxColor = randFraction(200.f, 255.f);
-        color = std::min(randFraction(0.f, 255.f), maxColor);
+        color = std::min(randFraction(0.f, 100.f), maxColor);
 
         burnMultiplier = randFraction(0.1f, 1.f);
 
@@ -74,7 +74,7 @@ public:
         for (auto s : Neighbours)
         {
             if (s -> state == growing)
-                growStrength += constrain(s -> color, 0.f, 255.f, 0.0001f, 0.0005f);
+                growStrength += constrain(s -> color, 0.f, 255.f, 0.0001f, 0.0002f);
             else
                 burnStrength += constrain(s -> color, 0.f, 255.f, 0.f, 3.f);
         }

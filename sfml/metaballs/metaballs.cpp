@@ -5,7 +5,7 @@
 #include "../universalfunctions/useful.h"
 using namespace sf;
 
-const float W = 500, H = 400;
+const float W = 500, H = 300;
 const float C = 100;
 
 class Circle {
@@ -34,9 +34,11 @@ std::vector<Circle> objects;
 
 int main()
 {
+    std::srand(time(NULL));
+    
     RenderWindow window(VideoMode(W, H), "SFML!", Style::Default);
 
-    int objectAmount = 6;
+    int objectAmount = 5;
     for(int i = 0; i < objectAmount; ++i) {
         objects.push_back(Circle());
     }
