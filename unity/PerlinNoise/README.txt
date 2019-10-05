@@ -1,0 +1,1 @@
+Map generation both in 2D and 3D based on PerlinNoise.
