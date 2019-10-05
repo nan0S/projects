@@ -1,1 +1,1 @@
-Projects that I made. Every program has README file that briefly explains what is going on.
+Projects that I made, mostly games. Every program has README file that briefly explains what is going on.
