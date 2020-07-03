@@ -1,2 +1,2 @@
-forestfire: forestfire.cpp
-	g++ forestfire.cpp -oforestfire -std=c++11 -ggdb -lsfml-graphics -lsfml-window -lsfml-system
+TARGET = forestfire
+include ../common/common.mk

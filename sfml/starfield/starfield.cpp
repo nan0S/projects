@@ -4,7 +4,7 @@
 #include <deque>
 #include <math.h>
 #include <sstream>
-#include "../universalfunctions/useful.h"
+#include "common/useful.hpp"
 using namespace sf;
 
 const float W = 1200, H = 720;
@@ -132,6 +132,9 @@ public:
                         flySpeed += speedModificationSpeed;
                     else if(event.key.code == Keyboard::Key::Down)
                         flySpeed -= speedModificationSpeed;
+				break;
+			default:
+				break;
             }
         }
     }

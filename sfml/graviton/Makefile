@@ -1,2 +1,3 @@
-graviton: graviton.cpp Game.h Interface.h Fundament.h Const.h Bullet.h Planet.h Player.h Enemy.h Camera.h Animation.h Board.h Collectable.h
-	g++ graviton.cpp -ograviton -std=c++11 -ggdb -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system
+TARGET = graviton
+DEPS = Animation.o Board.o Bullet.o Camera.o Collectable.o Const.o Enemy.o Fundament.o Game.o Interface.o Planet.o Player.o
+include ../common/common.mk

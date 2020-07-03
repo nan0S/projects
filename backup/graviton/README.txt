@@ -1,0 +1,1 @@
+Simple game - that's where I learned concepts of inheritance, polymorphism (I just needed them).

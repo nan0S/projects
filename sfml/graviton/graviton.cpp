@@ -3,19 +3,19 @@
 #include <iostream>
 #include <list>
 #include <math.h>
-#include "../universalfunctions/useful.h"
-#include "Animation.h"
-#include "Const.h"
-#include "Interface.h"
-#include "Fundament.h"
-#include "Planet.h"
-#include "Bullet.h"
-#include "Player.h"
-#include "Collectable.h"
-#include "Camera.h"
-#include "Enemy.h"
-#include "Board.h"
-#include "Game.h"
+#include "common/useful.hpp"
+#include "Animation.hpp"
+#include "Const.hpp"
+#include "Interface.hpp"
+#include "Fundament.hpp"
+#include "Planet.hpp"
+#include "Bullet.hpp"
+#include "Player.hpp"
+#include "Collectable.hpp"
+#include "Camera.hpp"
+#include "Enemy.hpp"
+#include "Board.hpp"
+#include "Game.hpp"
 using namespace sf;
 
 int main()

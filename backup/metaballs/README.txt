@@ -1,0 +1,1 @@
+Moving colorful balls. Calculating color of every pixel (not using GPU so it's slow but still fun).
