@@ -33,8 +33,8 @@ int main()
 {
 	std::srand(time(NULL));
 
-	ContextSettings settings; settings.antialiasingLevel = 16;
-	RenderWindow window(VideoMode(W, H), "Lightning", Style::Default, settings);
+	ContextSettings settings; settings.antialiasingLevel = 8;
+	RenderWindow window(VideoMode(W, H), "Lightning", Style::Titlebar, settings);
 
 	VertexArray vertex(Points, W * H);
 

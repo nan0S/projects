@@ -99,8 +99,8 @@ class App
 		App()
 		{
 			ContextSettings settings;
-			settings.antialiasingLevel = 16;
-			window.create(VideoMode(W, H), "Quanta", Style::Default, settings);
+			settings.antialiasingLevel = 8;
+			window.create(VideoMode(W, H), "Quanta", Style::Titlebar, settings);
 			window.setFramerateLimit(60);
 
 			objectCount = 30;

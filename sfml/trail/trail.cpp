@@ -179,8 +179,14 @@ public:
     App ()
     {
         ContextSettings settings;
-        settings.antialiasingLevel = 16;
-        window.create(VideoMode(W, H), "Trail", Style::Default, settings);
+        settings.antialiasingLevel = 8;
+        window.create(VideoMode(W, H), "Trail", Style::Titlebar, settings);
+	   PrintHelp();
+    }
+
+    void PrintHelp()
+    {
+	    std::cout << "Move around with WASD keys and leave trail behind you!" << std::endl;
     }
 
     void Run ()

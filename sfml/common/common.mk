@@ -7,6 +7,8 @@ LIBS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
 
 install: $(TARGET) clean
 
+all: $(TARGET)
+
 $(TARGET): $(OBJS) $(DEPS) $(COMMON)
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 

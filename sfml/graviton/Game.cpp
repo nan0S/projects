@@ -2,7 +2,9 @@
 #include "common/useful.hpp"
 
 Game::Game() {
-	ContextSettings settings; settings.antialiasingLevel = 16;
+	printHelp();
+
+	ContextSettings settings; settings.antialiasingLevel = 8;
 	window = new RenderWindow(VideoMode(W, H), "Graviton", Style::Default, settings);
 	window->setFramerateLimit(120);
 
@@ -22,7 +24,7 @@ Game::Game() {
 
 	sBackground.setTexture(background);
 
-	fuelFont.loadFromFile("../fonts/myfont_bold.ttf");
+	fuelFont.loadFromFile("fonts/Hermit_Bold.otf");
 
 	gravityToggle = false;
 	spaceReleased = true;
@@ -36,6 +38,13 @@ Game::Game() {
 	framesPerSecond.setCharacterSize(32);
 	framesPerSecond.setColor(Color::Yellow);
 	clock.restart();
+}
+
+void Game::printHelp() {
+	std::cout << "Graviton game!" << std::endl;
+	std::cout << "Navigate with ASD, accelerate with W." << std::endl;
+	std::cout << "Press Space to shoot!" << std::endl;
+	std::cout << "Press B to go to the next level (should be disabled)." << std::endl;
 }
 
 void Game::run() {

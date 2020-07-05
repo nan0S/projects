@@ -159,10 +159,11 @@ class Game
 
 		void SetupWindow ()
 		{
-			std::cout << "Click on tree to set it on fire" << std::endl;
+			std::cout << "Forest fire simulation!" << std::endl;
+			std::cout << "Click on tree to set it on fire!" << std::endl;
 			ContextSettings settings;
-			settings.antialiasingLevel = 16;
-			window.create(VideoMode(W, H), "Forest Fire Simulation", Style :: Default, settings);
+			settings.antialiasingLevel = 8;
+			window.create(VideoMode(W, H), "Forest Fire Simulation", Style :: Titlebar, settings);
 			window.setFramerateLimit(60);
 		}
 

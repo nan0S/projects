@@ -12,193 +12,207 @@ const float radius = 5;
 
 class Star 
 {
-public:
+	public:
 
-    float x, y, z;
-    Vector2f pos, pastPosition;
-    Color color;
-    VertexArray line;
+		float x, y, z;
+		Vector2f pos, pastPosition;
+		Color color;
+		VertexArray line;
 
-    Star () 
-    {
-        x = randFraction(-30 * W, 30 * W);
-        y = randFraction(-30 * H, 30 * H);
-        z = randFraction(0, 30 * W);
+		Star () 
+		{
+			x = randFraction(-30 * W, 30 * W);
+			y = randFraction(-30 * H, 30 * H);
+			z = randFraction(0, 30 * W);
 
-        color = Color::White;
+			color = Color::White;
 
-        line.setPrimitiveType(Lines);
-        line.resize(2);
-    }
+			line.setPrimitiveType(Lines);
+			line.resize(2);
+		}
 
-    bool OffScreen () 
-    {
-        return (pastPosition.x < -W or pastPosition.x > W or pastPosition.y < -H or pastPosition.y > H);
-    }
+		bool OffScreen () 
+		{
+			return (pastPosition.x < -W or pastPosition.x > W or pastPosition.y < -H or pastPosition.y > H);
+		}
 
-    void Reset () 
-    {
-        x = randFraction(-30 * W, 30 * W);
-        y = randFraction(-30 * H, 30 * H);
-        z = randFraction(W, 30 * W);
-    }
+		void Reset () 
+		{
+			x = randFraction(-30 * W, 30 * W);
+			y = randFraction(-30 * H, 30 * H);
+			z = randFraction(W, 30 * W);
+		}
 
-    void Update (float &flySpeed) 
-    {
-        z -= flySpeed;
+		void Update (float &flySpeed) 
+		{
+			z -= flySpeed;
 
-        pos.x = constrain(x / z, -1, 1, -W, W);
-        pos.y = constrain(y / z, -H / W, H / W, -H, H);
+			pos.x = constrain(x / z, -1, 1, -W, W);
+			pos.y = constrain(y / z, -H / W, H / W, -H, H);
 
-        pastPosition.x = constrain(x / (z + 30 * flySpeed), -1, 1, -W, W);
-        pastPosition.y = constrain(y / (z + 30 * flySpeed), -H / W, H / W, -H, H);
+			pastPosition.x = constrain(x / (z + 30 * flySpeed), -1, 1, -W, W);
+			pastPosition.y = constrain(y / (z + 30 * flySpeed), -H / W, H / W, -H, H);
 
-        if((flySpeed > 0 and (z <= 0.f or OffScreen())) or (z > 30 * W and flySpeed < 0)) 
-        {
-            Reset();
-            return;
-        }
+			if((flySpeed > 0 and (z <= 0.f or OffScreen())) or (z > 30 * W and flySpeed < 0)) 
+			{
+				Reset();
+				return;
+			}
 
-        line[0].position = pastPosition;
-        line[1].position = pos;
-        line[0].color = Color::Black;
-        line[1].color = color;
-    }
+			line[0].position = pastPosition;
+			line[1].position = pos;
+			line[0].color = Color::Black;
+			line[1].color = color;
+		}
 
-    void Draw (RenderWindow &window) 
-    {
-        window.draw(line);
-    }
+		void Draw (RenderWindow &window) 
+		{
+			window.draw(line);
+		}
 };
 
 class App 
 {
-public:
+	public:
 
-    RenderWindow window;
+		RenderWindow window;
 
-    std::list<Star*> stars;
+		std::list<Star*> stars;
 
-    Font boldFont;
-    Text framesPerSecond;
+		Font boldFont;
+		Text framesPerSecond;
 
-    float flySpeed;
-    float speedModificationSpeed;
-    int starCount;
+		float flySpeed;
+		float speedModificationSpeed;
+		int starCount;
 
-    Clock clock;
-    int drawnFrameCount;
+		Clock clock;
+		int drawnFrameCount;
 
-    App () 
-    {
-        starCount = 5000;
+		App (int argc, char* argv[]) 
+		{
+			PrintHelp();
 
-        ContextSettings settings; settings.antialiasingLevel = 16;
-        window.create(VideoMode(W, H), "Starfield", Style::Default, settings);
-        View view(Vector2f(0, 0), Vector2f(2 * W, 2 * H));
-        window.setView(view);
+			if (argc > 1)
+				starCount = atoi(argv[1]);
+			else
+				starCount = 5000;
 
-        flySpeed = 5;
-        speedModificationSpeed = 0.3;
+			ContextSettings settings; settings.antialiasingLevel = 8;
+			window.create(VideoMode(W, H), "Starfield", Style::Titlebar, settings);
+			View view(Vector2f(0, 0), Vector2f(2 * W, 2 * H));
+			window.setView(view);
 
-        for(int i = 0; i < starCount; ++i) 
-        {
-            Star *s = new Star();
-            stars.push_back(s);
-        }
+			flySpeed = 5;
+			speedModificationSpeed = 0.3;
 
-        boldFont.loadFromFile("../fonts/myfont_bold.ttf");
+			for(int i = 0; i < starCount; ++i) 
+			{
+				Star *s = new Star();
+				stars.push_back(s);
+			}
 
-        framesPerSecond.setFont(boldFont);
-        framesPerSecond.setCharacterSize(48);
-        framesPerSecond.setPosition(-W + 30, -H + 15);
+			boldFont.loadFromFile("fonts/Hermit_Bold.otf");
 
-        drawnFrameCount = 0;
-        clock.restart();
-    }
+			framesPerSecond.setFont(boldFont);
+			framesPerSecond.setCharacterSize(48);
+			framesPerSecond.setPosition(-W + 30, -H + 15);
 
-    void ProcessEvents () 
-    {
-        Event event;
-        while(window.pollEvent(event)) 
-        {
-            switch(event.type) 
-            {
-                case Event::Closed:
-                    window.close();
-                    break;
-                case Event::KeyPressed:
-                    if(event.key.code == Keyboard::Key::Up) 
-                        flySpeed += speedModificationSpeed;
-                    else if(event.key.code == Keyboard::Key::Down)
-                        flySpeed -= speedModificationSpeed;
-				break;
-			default:
-				break;
-            }
-        }
-    }
+			drawnFrameCount = 0;
+			clock.restart();
+		}
 
-    void Update () 
-    {
-        for(auto s : stars) 
-            s -> Update(flySpeed);
-    }
+		void PrintHelp()
+		{
+			std::cout << "Floating through starfield simulation!" << std::endl;
+			std::cout << "Use up/down arrows to speed up or slow down!" << std::endl;
+			std::cout << "You can even go backwards!" << std::endl;
+			std::cout << "You can also specify number of stars on the screen as a program's argument!" << std::endl;
+			std::cout << "eg. ./starfield 1000 (default is 5000)" << std::endl;
+		}
 
-    void CountStarsOnScreen () 
-    {
-        int numberOfStarsOnScreen = 0;
-        for(auto s : stars)
-            if(!(s -> OffScreen()))
-                ++numberOfStarsOnScreen;
+		void ProcessEvents () 
+		{
+			Event event;
+			while(window.pollEvent(event)) 
+			{
+				switch(event.type) 
+				{
+					case Event::Closed:
+						window.close();
+						break;
+					case Event::KeyPressed:
+						if(event.key.code == Keyboard::Key::Up) 
+							flySpeed += speedModificationSpeed;
+						else if(event.key.code == Keyboard::Key::Down)
+							flySpeed -= speedModificationSpeed;
+						break;
+					default:
+						break;
+				}
+			}
+		}
 
-        std::stringstream liczba; liczba << numberOfStarsOnScreen;
-    }
+		void Update () 
+		{
+			for(auto s : stars) 
+				s -> Update(flySpeed);
+		}
 
-    void UpdateFrameCounter() 
-    {
-        float frames = drawnFrameCount / clock.getElapsedTime().asSeconds();
-        int intFrames = frames;
+		void CountStarsOnScreen () 
+		{
+			int numberOfStarsOnScreen = 0;
+			for(auto s : stars)
+				if(!(s -> OffScreen()))
+					++numberOfStarsOnScreen;
 
-        std::stringstream liczba; liczba << intFrames;
-        framesPerSecond.setString(liczba.str());
+			std::stringstream liczba; liczba << numberOfStarsOnScreen;
+		}
 
-        drawnFrameCount = 0;
-        clock.restart();
-    }
+		void UpdateFrameCounter() 
+		{
+			float frames = drawnFrameCount / clock.getElapsedTime().asSeconds();
+			int intFrames = frames;
 
-    void DrawAll() 
-    {
-        window.clear(Color::Black);
+			std::stringstream liczba; liczba << intFrames;
+			framesPerSecond.setString(liczba.str());
 
-        for(auto s : stars)
-            s -> Draw(window);
+			drawnFrameCount = 0;
+			clock.restart();
+		}
 
-        window.draw(framesPerSecond);
+		void DrawAll() 
+		{
+			window.clear(Color::Black);
 
-        ++drawnFrameCount;
-        if(clock.getElapsedTime().asSeconds() > 0.1f)
-            UpdateFrameCounter();
+			for(auto s : stars)
+				s -> Draw(window);
 
-        window.display();
-    }
+			window.draw(framesPerSecond);
 
-    void Run () 
-    {
-        while(window.isOpen()) 
-        {
-            ProcessEvents();
-            Update();
-            CountStarsOnScreen();
-            DrawAll();
-        }
-    }
+			++drawnFrameCount;
+			if(clock.getElapsedTime().asSeconds() > 0.1f)
+				UpdateFrameCounter();
+
+			window.display();
+		}
+
+		void Run () 
+		{
+			while(window.isOpen()) 
+			{
+				ProcessEvents();
+				Update();
+				CountStarsOnScreen();
+				DrawAll();
+			}
+		}
 };
 
-int main()
+int main(int argc, char* argv[])
 {
-    App app;
-    app.Run();
+	App app(argc, argv);
+	app.Run();
 
-    return 0;
+	return 0;
 }

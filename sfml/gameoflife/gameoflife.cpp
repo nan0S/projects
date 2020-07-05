@@ -67,15 +67,23 @@ class App {
 		bool gameStopped;
 
 		App() {
+			printInfo();
 			initWindow();
 			initCells();
 			initVariables();
 			initBoard();
 		}
 
+		void printInfo() {
+			std::cout << "Game of Life!" << std::endl;
+			std::cout << "Press P to toggle edit mode!" << std::endl;
+			std::cout << "In edit mode you can toggle cells on and off!" << std::endl;
+			std::cout << "Press C to clear the board!" << std::endl;
+		}
+
 		void initWindow() {
-			ContextSettings settings; settings.antialiasingLevel = 16;
-			window.create(VideoMode(W, H), "Cellular Automata", Style::Default, settings);
+			ContextSettings settings; settings.antialiasingLevel = 8;
+			window.create(VideoMode(W, H), "Cellular Automata", Style::Titlebar, settings);
 			window.setFramerateLimit(30);
 		}
 		void initCells() {

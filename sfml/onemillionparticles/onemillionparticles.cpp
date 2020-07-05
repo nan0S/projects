@@ -31,17 +31,6 @@ class Particle {
 		}
 
 		void update() {
-			// Vector2f newPos = pos + v;
-			/*if(newPos.x < 0 or newPos.x > W) {
-			  v.x *= -1;
-			  float dy = randFraction(-5.f, 5.f);
-			  v.y += dy;
-			  }
-			  if(newPos.y < 0 or newPos.y > H) {
-			  v.y *= -1;
-			  float dx = randFraction(-5.f, 5.f);
-			  v.x += dx;
-			  }*/
 			calculateColor();
 
 			v *= 0.995f;
@@ -71,8 +60,8 @@ class App {
 
 		App() {
 			ContextSettings settings;
-			settings.antialiasingLevel = 16;
-			window.create(VideoMode(W, H), "One Million Particles", Style::Default, settings);
+			settings.antialiasingLevel = 8;
+			window.create(VideoMode(W, H), "One Million Particles", Style::Titlebar, settings);
 			window.setFramerateLimit(60);
 
 			windowView = Vector2f(0, 0);
@@ -80,6 +69,13 @@ class App {
 			for(int i = 0; i < 30000; ++i) {
 				particles.push_back(new Particle());
 			}
+
+			printHelp();
+		}
+
+		void printHelp() {
+			std::cout << "One Million Particles!" << std::endl;
+			std::cout << "Move cursor to make particles follow you and speed up!" << std::endl;
 		}
 
 		void run() {

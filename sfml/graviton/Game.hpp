@@ -22,6 +22,8 @@ public:
     Clock clock;
 
     Game();
+	
+    void printHelp();
 
     void run();
     void processEvents();

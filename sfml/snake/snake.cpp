@@ -6,7 +6,7 @@ const int WIDTH = 800, HEIGHT = 600;
 const int A = 20;
 const int KOL = WIDTH / A, WIER = HEIGHT / A;
 
-sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "SNAKE");
+sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Snake", sf::Style::Titlebar);
 
 sf::Font font_bold;
 sf::Font font_light;
@@ -22,8 +22,8 @@ int naj_wynik;
 std::pair<int, int> food;
 
 void stworz_menu() {
-	font_bold.loadFromFile("../fonts/myfont_bold.ttf");
-	font_light.loadFromFile("../fonts/myfont_light.ttf");
+	font_bold.loadFromFile("fonts/font_bold.ttf");
+	font_light.loadFromFile("fonts/font_light.ttf");
 
 	snake.setOrigin(snake.getLocalBounds().width / 2, snake.getLocalBounds().height / 2);
 	snake.setPosition(sf::Vector2f(WIDTH / 2, 100));
@@ -33,6 +33,12 @@ void stworz_menu() {
 
 	start.setOrigin(start.getLocalBounds().width / 2, start.getLocalBounds().height / 2);
 	start.setPosition(sf::Vector2f(WIDTH / 2, 380));
+}
+
+void print_help() {
+	std::cout << "Snake The Game!" << std::endl;
+	std::cout << "Navigate with WASD or arrow keys!" << std::endl;
+	std::cout << "Press SPACE to speed up!" << std::endl;
 }
 
 void generate_food();
@@ -302,6 +308,7 @@ int main()
 {
 	srand(time(NULL));
 	stworz_menu();
+	print_help();
 	sf::Clock clock;
 
 	window.clear(sf::Color::Black);

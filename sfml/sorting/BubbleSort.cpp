@@ -1,6 +1,7 @@
 #include "BubbleSort.hpp"
+#include "common/useful.hpp"
 
-static void processEvents(RenderWindow &window)
+static bool processEvents(RenderWindow &window)
 {
 	Event e;
 	while (window.pollEvent(e))
@@ -12,6 +13,7 @@ static void processEvents(RenderWindow &window)
 			default:
 				break;
 		}
+	return pressed(sf::Keyboard::Q);
 }
 
 void BubbleSort(RenderWindow &window, std::vector<RectangleShape> V)
@@ -44,7 +46,8 @@ void BubbleSort(RenderWindow &window, std::vector<RectangleShape> V)
 				change = true;
 			}
 
-			processEvents(window);
+			if (processEvents(window))
+				return;
 
 			window.clear(Color::Black);
 			for(size_t j = 0; j < V.size(); ++j)

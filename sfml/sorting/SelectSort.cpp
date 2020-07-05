@@ -1,6 +1,7 @@
 #include "SelectSort.hpp"
+#include "common/useful.hpp"
 
-static void processEvents (RenderWindow &window)
+static bool processEvents (RenderWindow &window)
 {
 	Event e;
 	while (window.pollEvent(e))
@@ -12,6 +13,8 @@ static void processEvents (RenderWindow &window)
 			default:
 				break;
 		}
+	
+	return pressed(sf::Keyboard::Q);
 }
 
 void SelectSort(RenderWindow &window, std::vector<RectangleShape> V)
@@ -42,7 +45,8 @@ void SelectSort(RenderWindow &window, std::vector<RectangleShape> V)
 				highI = highJ;
 			}
 
-			processEvents(window);
+			if (processEvents(window))
+				return;
 
 			window.clear(Color::Black);
 			for (size_t k = 0; k < V.size(); ++k)

@@ -206,11 +206,16 @@ class App {
 
 		App() {
 			setupWindow();
+			printHelp();
+		}
+
+		void printHelp() {
+			std::cout << "Random maze generator!" << std::endl;
 		}
 
 		void setupWindow() {
-			ContextSettings settings; settings.antialiasingLevel = 16;
-			window.create(VideoMode(W, H), "Maze Generator", Style::Default, settings);
+			ContextSettings settings; settings.antialiasingLevel = 8;
+			window.create(VideoMode(W, H), "Maze Generator", Style::Titlebar, settings);
 			window.setFramerateLimit(60);
 		}
 

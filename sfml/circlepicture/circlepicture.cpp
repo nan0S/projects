@@ -1,16 +1,18 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Window/ContextSettings.hpp>
 #include <iostream>
 #include <list>
 #include "Circle.hpp"
 #include "common/useful.hpp"
 using namespace sf;
 
-const int W = 1920, H = 1080;
+const int W = 1280, H = 720;
 const int A = 60;
 const int rows = H / A, cols = W / A;
 
 Vector2f moveVector;
 
+RenderWindow window;
 Image image;
 Color mask[H + 1][W + 1];
 
@@ -19,22 +21,33 @@ std::list<Circle*> statics[rows + 1][cols + 1],
 
 std::vector<Circle*> toDrawNow;
 
-void init() {
-	image.loadFromFile("images/shrek.jpg");
-	moveVector = Vector2f((W - image.getSize().x) / 2, (H - image.getSize().y) / 2);
+void printHelp()
+{
+	std::cout << "Create picture from small circles!" << std::endl;
+}
 
-	for(std::size_t x = 0; x < image.getSize().x; ++x) {
-		for(std::size_t y = 0; y < image.getSize().y; ++y) {
+void init(std::string& imagePath) {
+	std::string path = "images/" + imagePath;
+	image.loadFromFile(path);
+
+	Vector2u size = image.getSize();
+	moveVector = Vector2f((W - size.x) / 2, (H - size.y) / 2);
+
+	ContextSettings settings;
+	settings.antialiasingLevel = 8;
+	window.create(VideoMode(W, H), "Circle Picturing", Style::Titlebar, settings);
+
+	for(std::size_t x = 0; x < image.getSize().x; ++x)
+		for(std::size_t y = 0; y < image.getSize().y; ++y)
 			mask[x][y] = image.getPixel(x, y);
-		}
-	}
+
+	printHelp();
 }
 
 bool isGoodToStart(Vector2f pos) {
 	pos -= moveVector;
-
-	if(pos.x < 0 or pos.x > image.getSize().x or pos.y < 0 or pos.y > image.getSize().y) return false;
-
+	if(pos.x < 0 or pos.x > image.getSize().x or pos.y < 0 or pos.y > image.getSize().y)
+		return false;
 	pos += moveVector;
 
 	for(int y = 0; y <= rows; ++y) {
@@ -89,7 +102,6 @@ void checkCollisions() {
 							if(c2 -> growingSpeed == 0 or c1 -> pos == c2 -> pos) continue;
 
 							if(isColliding(c1, c2)) {
-								// std::cout << "(" <<  c1 -> pos.x << ", " << c1 -> pos.y << ") (" << c2 -> pos.x << ", " << c2 -> pos.y << ") " << c1 -> R << " " << c2 -> R << "\n";
 								c2 -> growingSpeed = 0;
 								collision = true;
 								break;
@@ -188,16 +200,15 @@ void drawAndUpdateAll(RenderWindow &window) {
 	toDrawNow.clear();
 }
 
-int main()
+int main(int argc, char* argv[])
 {
 	srand(time(NULL));
-	ContextSettings settings; settings.antialiasingLevel = 8;
-	RenderWindow window(VideoMode(W, H), "Circle Picturing!", Style::Default, settings);
-
-	init();
+	std::string imagePath = "shrek.jpg";
+	if (argc == 2)
+		imagePath = argv[1];
+	init(imagePath);
 
 	bool leftPressed = false;
-
 	while(window.isOpen()) {
 
 		Event e;
@@ -207,15 +218,14 @@ int main()
 					window.close();
 					break;
 				case Event::MouseButtonPressed:
-					if(Mouse::isButtonPressed(Mouse::Button::Left)) {
+					if(Mouse::isButtonPressed(Mouse::Button::Left))
 						leftPressed = !leftPressed;
-					}
 				default:
 					break;
 			}
 		}
 
-		// if(leftPressed) editMode(window);
+		if(leftPressed) editMode(window);
 
 		lotteryPoint();
 		checkCollisions();

@@ -18,9 +18,6 @@ const int dy[] = {-1, -1, -1, 0, 0, 1, 1, 1};
 
 const long long INF = 1e18;
 
-// const int dx[] = {1, 0, -1, 0};
-// const int dy[] = {0, 1, 0, -1};
-
 class Cell {
 	public:
 		Vector2i positionOnScreen, positionInArray;
@@ -118,12 +115,19 @@ class App {
 		Cell* cell[columnCount + 1][rowCount + 1];
 
 		App() {
+			printInfo();
 			initWindow();
 			initCells();
 		}
 
+		void printInfo()
+		{
+			std::cout << "Forest file simulation!" << std::endl;
+			std::cout << "Fire starts randomly and then spreads!" << std::endl;
+		}
+
 		void initWindow() {
-			ContextSettings settings; settings.antialiasingLevel = 16;
+			ContextSettings settings; settings.antialiasingLevel = 8;
 			window.create(VideoMode(W, H), "Forest Fire", Style::Titlebar, settings);
 		}
 

@@ -24,7 +24,6 @@ class Circle {
 			Vector2f newPos = pos + v;
 			if(newPos.x > W or newPos.x < 0) v.x *= -1;
 			if(newPos.y > H or newPos.y < 0) v.y *= -1;
-
 			pos += v;
 		}
 };
@@ -36,7 +35,7 @@ int main()
 {
 	std::srand(time(NULL));
 
-	RenderWindow window(VideoMode(W, H), "SFML!", Style::Default);
+	RenderWindow window(VideoMode(W, H), "Metaballs!", Style::Titlebar);
 
 	int objectAmount = 5;
 	for(int i = 0; i < objectAmount; ++i) {
@@ -67,7 +66,7 @@ int main()
 				float color = 0.f;
 				for(std::size_t i = 0; i < objects.size(); ++i) {
 					float d = dist(objects[i].pos, Vector2f(x, y));
-					d = std::max(d, 0.f);
+					d = std::max(d, 0.001f);
 					color += objects[i].R * C / d;
 				}
 				color = std::min(color, 255.f);
