@@ -1,1 +1,1 @@
-Generating maze.
+Random maze generator!
