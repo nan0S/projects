@@ -3,5 +3,4 @@
 #include <bits/stdc++.h>
 using namespace sf;
 
-static void processEvents(RenderWindow &window);
 void BubbleSort(RenderWindow &window, std::vector<RectangleShape> V);

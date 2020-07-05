@@ -60,7 +60,7 @@ class Board {
 		void gameOver();
 		void reset();
 
-		void update(Interface &interface, RenderWindow *window);
+		void update(RenderWindow *window);
 
 		void drawTo(RenderWindow *window);
 };

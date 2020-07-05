@@ -5,6 +5,8 @@ COMMON = ../common/useful.o
 IDIRS = -I ..
 LIBS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
 
+install: $(TARGET) clean
+
 $(TARGET): $(OBJS) $(DEPS) $(COMMON)
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
@@ -12,7 +14,7 @@ $(TARGET): $(OBJS) $(DEPS) $(COMMON)
 	$(CC) $(CFLAGS) -c -o $@ $< $(IDIRS)
 
 clean:
-	rm -f *.o
+	rm -rf compile_commands.json .clangd *.o
 distclean: clean
 	rm -f $(TARGET)
 

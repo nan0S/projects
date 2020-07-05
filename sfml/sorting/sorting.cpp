@@ -75,6 +75,7 @@ int main()
 					window.close();
 					break;
 				case Event::TextEntered:
+				{
 					char pressed = static_cast<char>(e.text.unicode);
 					if (pressed >= '1' and pressed <= '9')
 					{
@@ -83,6 +84,9 @@ int main()
 						sleep(seconds(2));
 						displayMenu(window);
 					}
+					break;
+				}
+				default:
 					break;
 			}
 	}

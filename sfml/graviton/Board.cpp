@@ -8,7 +8,7 @@ Board::Board() {
 	time = 0;
 
 	border.setPrimitiveType(LinesStrip); border.resize(5);
-	for(int i = 0; i < border.getVertexCount(); ++i) {
+	for(size_t i = 0; i < border.getVertexCount(); ++i) {
 		border[i].color = Color::Red;
 	}
 	top = 0; bottom = H; left = 0; right = W;
@@ -324,7 +324,7 @@ void Board::reset() {
 	player.reset();
 }
 
-void Board::update(Interface &interface, RenderWindow *window) {
+void Board::update(RenderWindow *window) {
 	isEnd();
 	checkCollisions();
 	checkOffScreen();

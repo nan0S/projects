@@ -21,13 +21,13 @@ void SelectSort(RenderWindow &window, std::vector<RectangleShape> V)
 		window.draw(rect);
 	window.display();
 
-	for (int i = 0; i < V.size(); ++i)
+	for (size_t i = 0; i < V.size(); ++i)
 	{
 		auto& rect1 = V[i];
 		rect1.setFillColor(Color::Green);
 
 		float highI = rect1.getLocalBounds().height;
-		for (int j = i + 1; j < V.size(); ++j)
+		for (size_t j = i + 1; j < V.size(); ++j)
 		{
 			auto& rect2 = V[j];
 			rect2.setFillColor(Color::Red);
@@ -45,7 +45,7 @@ void SelectSort(RenderWindow &window, std::vector<RectangleShape> V)
 			processEvents(window);
 
 			window.clear(Color::Black);
-			for (int k = 0; k < V.size(); ++k)
+			for (size_t k = 0; k < V.size(); ++k)
 				window.draw(V[k]);
 			window.display();
 

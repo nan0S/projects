@@ -1,4 +1,7 @@
 #include "Fundament.hpp"
+#include <cmath>
+#include <common/useful.hpp>
+#include "Const.hpp"
 
 Circle::Circle(Vector2f relativePos_, Vector2f originPos_, float R_) {
 	relativePos = relativePos_;
@@ -30,13 +33,13 @@ void Circle::drawTo(RenderWindow *window) {
 	window->draw(shape);
 }
 
-Hitbox::HitBox() {}
+HitBox::HitBox() {}
 
-void Hitbox::addElementToHitBox(Circle c) {
+void HitBox::addElementToHitBox(Circle c) {
 	things.push_back(c);
 }
 
-bool Hitbox::isColliding(HitBox *h, float inacuraccy) {
+bool HitBox::isColliding(HitBox *h, float inacuraccy) {
 	for(auto c1 : things) {
 		for(auto c2 : h->things) {
 			if(dist(c1.getPos(), c2.getPos()) < c1.R + c2.R + inacuraccy) {
@@ -47,7 +50,7 @@ bool Hitbox::isColliding(HitBox *h, float inacuraccy) {
 	return false;
 }
 
-void Hitbox::drawHitBox(RenderWindow *window) {
+void HitBox::drawHitBox(RenderWindow *window) {
 	for(auto t : things) {
 		t.drawTo(window);
 	}

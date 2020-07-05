@@ -1,5 +1,4 @@
 #include "BubbleSort.hpp"
-using namespace sf;
 
 static void processEvents(RenderWindow &window)
 {
@@ -28,7 +27,7 @@ void BubbleSort(RenderWindow &window, std::vector<RectangleShape> V)
 	{
 		change = false;
 		++howMany;
-		for (int i = 0; i < V.size() - howMany; ++i)
+		for (size_t i = 0; i < V.size() - howMany; ++i)
 		{
 			auto& rect1 = V[i], &rect2 = V[i + 1];
 			rect1.setFillColor(Color::Green);
@@ -48,7 +47,7 @@ void BubbleSort(RenderWindow &window, std::vector<RectangleShape> V)
 			processEvents(window);
 
 			window.clear(Color::Black);
-			for(int j = 0; j < V.size(); ++j)
+			for(size_t j = 0; j < V.size(); ++j)
 				window.draw(V[j]);
 			window.display();
 

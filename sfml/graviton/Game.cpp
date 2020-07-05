@@ -77,7 +77,7 @@ void Game::processEvents() {
 }
 
 void Game::update() {
-	board.update(interface, window);
+	board.update(window);
 	// camera.update(board.player, window);
 	interface.update(board.player.fuel / 10, board.camera.getPosition(), board.camera.getRange());
 	updateFrameCounterPosition();
