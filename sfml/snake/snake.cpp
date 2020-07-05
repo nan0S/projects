@@ -38,7 +38,6 @@ void stworz_menu() {
 void print_help() {
 	std::cout << "Snake The Game!" << std::endl;
 	std::cout << "Navigate with WASD or arrow keys!" << std::endl;
-	std::cout << "Press SPACE to speed up!" << std::endl;
 }
 
 void generate_food();
