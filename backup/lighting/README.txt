@@ -1,1 +1,0 @@
-Moving balls that looks like light. Calculating color of every pixel (not using GPU so it's slow but still fun).

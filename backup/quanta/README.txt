@@ -1,1 +1,0 @@
-Cool visual effect in background that I saw on some website.

@@ -1,1 +1,0 @@
-Drawing shrek.jpg with small circles.

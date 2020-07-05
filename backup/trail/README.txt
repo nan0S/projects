@@ -1,1 +1,0 @@
-Small trail to navigate and have a little fun. Use WASD to navigate.
