@@ -1,4 +1,3 @@
-Drawing shrek.jpg with small circles.
 # Circle Drawing
 Redraw pictures with small circles.
 #### Navigation
